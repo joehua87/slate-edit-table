@@ -21,7 +21,8 @@
     "storybook": "NODE_ENV=development start-storybook -p 9001",
     "build-storybook": "NODE_ENV=storybook build-storybook -c .storybook -o build",
     "test:file": "NODE_ENV=test NODE_PATH=./src mocha --require babel-register --require testHelper.js",
-    "test": "NODE_ENV=test NODE_PATH=./src mocha --require babel-register --require testHelper.js 'src/**/__test__/*.test.js'",
+    "test": "nyc -r text -r lcov npm run test:js",
+    "test:js": "NODE_ENV=test NODE_PATH=./src mocha --require babel-register --require testHelper.js 'src/**/__test__/*.test.js'",
     "test:watch": "NODE_ENV=test NODE_PATH=./src mocha --watch --require babel-register --require testHelper.js 'src/**/__test__/*.test.js'"
   },
   "stylelint": {
