@@ -1,0 +1,23 @@
+[ignore]
+.*/node_modules/babel.*
+.*/node_modules/editions/.*
+.*/node_modules/fbjs/.*
+.*/node_modules/immutable/.*
+.*/node_modules/redux-immutable-crud/.*
+.*/node_modules/.*.json
+
+[include]
+
+[libs]
+./flow-typed/external-modules.js # Define modules that not yet have flow-typed
+./flow-typed/npm/enzyme_v2.x.x.js
+./flow-typed/npm/mocha_v2.4.x.js
+
+[options]
+esproposal.class_instance_fields=enable
+esproposal.class_static_fields=enable
+module.system=haste
+module.system.node.resolve_dirname=src
+module.system.node.resolve_dirname=node_modules
+unsafe.enable_getters_and_setters=true
+module.name_mapper='.*\(.css\)$' -> 'CSSModule'

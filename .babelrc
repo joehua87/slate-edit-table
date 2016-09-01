@@ -1,0 +1,28 @@
+{
+  "presets": ["react", "es2015", "stage-0"],
+  "plugins": [
+    "transform-flow-comments",
+    "flow-comments"
+  ],
+  "env": {
+    "test":{
+      "plugins":[
+        "istanbul",
+        "rewire"
+      ]
+    },
+    "storybook":{
+    },
+    "production": {
+      "plugins": [
+        [
+          "babel-plugin-webpack-loaders",
+          {
+            "config": "${WEBPACK_CONFIG}",
+            "verbose": true
+          }
+        ]
+      ]
+    }
+  }
+}
