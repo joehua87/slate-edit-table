@@ -1,3 +1,8 @@
 .root {
-  padding: 10px;
+  color: #CCC;
+  cursor: pointer;
+}
+
+.root:hover {
+  color: black;
 }
