@@ -10,7 +10,7 @@
   "scripts": {
     "clean": "rimraf lib",
     "build": "npm run clean && npm run build:js && npm run build:css",
-    "build:js": "WEBPACK_CONFIG=$(pwd)/webpack.config.js BABEL_DISABLE_CACHE=1 BABEL_ENV=production NODE_ENV=production babel --out-dir='lib' --ignore='stories/*' --ignore='__test__/*' src",
+    "build:js": "WEBPACK_CONFIG=$(pwd)/webpack.config.js BABEL_DISABLE_CACHE=1 BABEL_ENV=production NODE_ENV=production babel --out-dir='lib' --ignore='stories/*,__test__/*' src",
     "build:css": "cpx 'lib-css/*.css' lib && rimraf lib-css",
     "prepublish": "npm run build",
     "lint": "npm run lint:js && npm run lint:css",
