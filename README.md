@@ -16,6 +16,9 @@ Preview storybook (go to http://localhost:9001)
 ### `npm run build-storybook`
 Build static storybook (output at ./build)
 
+### `npm run gh-pages`
+Build storybook & publish to github pages (see https://joehua87.github.io/react-component-starter-kit)
+
 ### `npm run test:file -- [-w] [test-file]`
 * Run test a single test file.
 * [-w] means watch
