@@ -22,7 +22,7 @@ module.exports = {
   },
   postcss: [autoprefixer({ browsers: ['> 1%'] })],
   plugins: [
-    new ExtractTextPlugin(`${path.parse(process.argv[2]).name}.css`),
+    new ExtractTextPlugin('styles.css'),
   ],
   resolve: {
     modules: [
