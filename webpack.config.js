@@ -1,7 +1,11 @@
 /* eslint-disable no-var */
 var path = require('path')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
-var autoprefixer = require('autoprefixer')
+
+// PostCSS plugins
+const cssnext = require('postcss-cssnext')
+const postcssFocus = require('postcss-focus')
+const postcssReporter = require('postcss-reporter')
 
 module.exports = {
   output: {
@@ -20,7 +24,15 @@ module.exports = {
       },
     ],
   },
-  postcss: [autoprefixer({ browsers: ['> 1%'] })],
+  postcss: [
+    postcssFocus(),
+    cssnext({
+      browsers: ['last 2 versions', 'IE > 10'],
+    }),
+    postcssReporter({
+      clearMessages: true,
+    }),
+  ],
   plugins: [
     new ExtractTextPlugin('styles.css'),
   ],

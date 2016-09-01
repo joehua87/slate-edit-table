@@ -1,5 +1,10 @@
 const path = require('path')
 
+// PostCSS plugins
+const cssnext = require('postcss-cssnext')
+const postcssFocus = require('postcss-focus')
+const postcssReporter = require('postcss-reporter')
+
 module.exports = {
   module: {
     loaders: [
@@ -29,4 +34,13 @@ module.exports = {
       '.react.js',
     ],
   },
+  postcss: [
+    postcssFocus(),
+    cssnext({
+      browsers: ['last 2 versions', 'IE > 10'],
+    }),
+    postcssReporter({
+      clearMessages: true,
+    }),
+  ],
 }
