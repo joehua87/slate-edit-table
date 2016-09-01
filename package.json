@@ -13,7 +13,7 @@
     "build:js": "WEBPACK_CONFIG=$(pwd)/webpack.config.js BABEL_DISABLE_CACHE=1 BABEL_ENV=production NODE_ENV=production babel --out-dir='lib' --ignore='stories/*' --ignore='__test__/*' src",
     "build:css": "cpx 'lib-css/*.css' lib && rimraf lib-css",
     "prepublish": "npm run build",
-    "lint": "eslint src",
+    "lint": "npm run lint:js && npm run lint:css",
     "lint:js": "eslint ./src",
     "lint:css": "stylelint ./src/**/*.css",
     "lint:staged": "lint-staged",
