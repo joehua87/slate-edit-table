@@ -1,3 +1,5 @@
+// @flow
+
 const TablePosition = require('../TablePosition')
 const createCell = require('../createCell')
 
@@ -9,7 +11,7 @@ const createCell = require('../createCell')
  * @param {Number} at
  * @return {Slate.Transform}
  */
-function insertColumn(opts, transform, at) {
+function insertColumn(opts: EditTableOptions, transform: Slate$Transform, at: number) {
   const { state } = transform
   const { startBlock } = state
 

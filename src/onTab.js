@@ -1,3 +1,5 @@
+// @flow
+
 const moveSelection = require('./transforms/moveSelection')
 const insertRow = require('./transforms/insertRow')
 
@@ -19,7 +21,7 @@ function selectAllText(transform) {
  * Pressing "Tab" moves the cursor to the next cell
  * and select the whole text
  */
-function onTab(event, data, state, opts) {
+function onTab(event: any, data: any, state: Slate$State, opts: EditTableOptions) {
   const direction = (data.isShift ? -1 : +1)
   const transform = state.transform()
   let newTransform = moveSelection(opts, transform, direction, 0)

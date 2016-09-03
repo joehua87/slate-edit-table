@@ -1,3 +1,5 @@
+// @flow
+
 const Immutable = require('immutable')
 
 const DEFAULTS = {
@@ -17,7 +19,7 @@ class TablePosition extends new Immutable.Record(DEFAULTS) {
      * Get count of columns
      * @return {Number}
      */
-  getWidth() {
+  getWidth(): number {
     const { table } = this
     const rows = table.nodes
     const cells = rows.get(0).nodes
@@ -29,7 +31,7 @@ class TablePosition extends new Immutable.Record(DEFAULTS) {
      * Get count of rows
      * @return {Number}
      */
-  getHeight() {
+  getHeight(): number {
     const { table } = this
     const rows = table.nodes
 
@@ -40,7 +42,7 @@ class TablePosition extends new Immutable.Record(DEFAULTS) {
      * Get index of current row in the table.
      * @return {Number}
      */
-  getRowIndex() {
+  getRowIndex(): number {
     const { table, row } = this
     const rows = table.nodes
 
@@ -51,7 +53,7 @@ class TablePosition extends new Immutable.Record(DEFAULTS) {
      * Get index of current column in the row.
      * @return {Number}
      */
-  getColumnIndex() {
+  getColumnIndex(): number {
     const { row, cell } = this
     const cells = row.nodes
 
@@ -66,7 +68,7 @@ class TablePosition extends new Immutable.Record(DEFAULTS) {
      * @param  {State.Block} cell
      * @return {TablePosition}
      */
-  static create(state, cell) {
+  static create(state, cell): TablePosition {
     const row = state.document.getParent(cell.key)
     const table = state.document.getParent(row.key)
 

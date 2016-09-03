@@ -1,6 +1,8 @@
+// @flow
+
 const moveSelection = require('./transforms/moveSelection')
 
-function onUpDown(event, data, state, opts) {
+function onUpDown(event: any, data: any, state: Slate$State, opts: EditTableOptions) {
   const transform = state.transform()
 
   const newTransform = moveSelection(

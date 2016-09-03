@@ -1,5 +1,7 @@
+// @flow
+
 const Immutable = require('immutable')
-const Slate = require('slate')
+import { Block } from 'slate'
 const createRow = require('./createRow')
 
 /**
@@ -12,12 +14,12 @@ const createRow = require('./createRow')
  * @param {Function} textGetter
  * @return {State.Block}
  */
-function createTable(opts, columns, rows, textGetter) {
+function createTable(opts: EditTableOptions, columns: number, rows: number, textGetter: () => string) {
   const rowNodes = Immutable.Range(0, rows)
         .map(i => createRow(opts, columns, textGetter ? textGetter.bind(null, i) : null))
         .toList()
 
-  return Slate.Block.create({
+  return Block.create({
     type: opts.typeTable,
     nodes: rowNodes,
   })

@@ -1,4 +1,6 @@
-const Slate = require('slate')
+// @flow
+
+import { Block, Raw } from 'slate'
 
 /**
  * Create a new cell
@@ -6,13 +8,13 @@ const Slate = require('slate')
  * @param {String} text?
  * @return {Slate.Node}
  */
-function createCell(type, text) {
+function createCell(type: string, text?: string) {
   text = text || ''
 
-  return Slate.Block.create({
+  return Block.create({
     type,
     nodes: [
-      Slate.Raw.deserializeText({
+      Raw.deserializeText({
         kind: 'text',
         text,
       }, { terse: true }),

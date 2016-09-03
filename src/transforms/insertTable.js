@@ -1,3 +1,5 @@
+// @flow
+
 const createTable = require('../createTable')
 
 /**
@@ -9,7 +11,7 @@ const createTable = require('../createTable')
  * @param {Number} rows
  * @return {Slate.Transform}
  */
-function insertTable(opts, transform, columns = 2, rows = 2) {
+function insertTable(opts: EditTableOptions, transform: Slate$Transform, columns: number = 2, rows: number = 2) {
   const { state } = transform
   const { startBlock } = state
 

@@ -1,3 +1,5 @@
+// @flow
+
 const insertTable = require('./transforms/insertTable')
 const insertRow = require('./transforms/insertRow')
 const removeRow = require('./transforms/removeRow')
@@ -24,7 +26,7 @@ const KEY_UP = 'up'
  * @param {String} opts.typeRow The type of row blocks
  * @param {String} opts.typeCell The type of cell blocks
  */
-function EditTable(opts) {
+function EditTable(opts: EditTableOptions) {
   opts = opts || {}
   opts.typeTable = opts.typeTable || 'table'
   opts.typeRow = opts.typeRow || 'table_row'
@@ -33,7 +35,7 @@ function EditTable(opts) {
     /**
      * Is the selection in a table
      */
-  function isSelectionInTable(state) {
+  function isSelectionInTable(state: Slate$State) {
     const { startBlock } = state
 
         // Only handle events in cells
@@ -44,42 +46,36 @@ function EditTable(opts) {
      * Bind a transform
      */
   function bindTransform(fn) {
-    return function (transform, ...args) {
+    return (transform: Slate$Transform, ...args: Array<any>) => {
       const { state } = transform
 
       if (!isSelectionInTable(state)) {
         return transform
       }
 
-      return fn(...[opts, transform].concat(args))
+      return fn(opts, transform, ...args)
     }
   }
 
     /**
      * User is pressing a key in the editor
      */
-  function onKeyDown(e, data, state) {
+  function onKeyDown(e: any, data: { key: string }, state: Slate$State) {
         // Only handle events in cells
     if (!isSelectionInTable(state)) {
       return
     }
 
-        // Build arguments list
-    const args = [
-      e, data, state,
-      opts,
-    ]
-
     switch (data.key) {
       case KEY_ENTER:
-        return onEnter(...args)
+        return onEnter(e, data, state, opts)
       case KEY_TAB:
-        return onTab(...args)
+        return onTab(e, data, state, opts)
       case KEY_BACKSPACE:
-        return onBackspace(...args)
+        return onBackspace(e, data, state, opts)
       case KEY_DOWN:
       case KEY_UP:
-        return onUpDown(...args)
+        return onUpDown(e, data, state, opts)
     }
   }
 

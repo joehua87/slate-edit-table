@@ -1,3 +1,5 @@
+// @flow
+
 const Immutable = require('immutable')
 const Slate = require('slate')
 const createCell = require('./createCell')
@@ -10,7 +12,7 @@ const createCell = require('./createCell')
  * @param {Function} textGetter
  * @return {State.Block}
  */
-function createRow(opts, columns, textGetter) {
+function createRow(opts: EditTableOptions, columns: number, textGetter?: ?() => string) {
   const cellNodes = Immutable.Range(0, columns)
         .map(i => createCell(opts.typeCell, textGetter ? textGetter(i) : ''))
         .toList()

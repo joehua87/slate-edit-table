@@ -1,3 +1,5 @@
+// @flow
+
 const TablePosition = require('../TablePosition')
 
 /**
@@ -8,7 +10,7 @@ const TablePosition = require('../TablePosition')
  * @param {Number} height
  * @return {Array<Number>}
  */
-function calculPos(x, y, width, height) {
+function calculPos(x: number, y: number, width: number, height: number): [number, number] {
   if (x < 0) {
     x = (width - 1)
     y--
@@ -40,7 +42,8 @@ function calculPos(x, y, width, height) {
  * @param {Boolean} absolute
  * @return {Slate.Transform}
  */
-function moveSelection(opts, transform, x, y, xabsolute, yabsolute) {
+function moveSelection(opts: EditTableOptions, transform: Slate$Transform, x: number, y: number, xabsolute?: number, yabsolute?: number)
+  : Slate$Transform {
   const { state } = transform
   const { startBlock } = state
   let { startOffset } = state

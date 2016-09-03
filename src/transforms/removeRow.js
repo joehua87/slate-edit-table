@@ -1,3 +1,5 @@
+// @flow
+
 const TablePosition = require('../TablePosition')
 
 /**
@@ -8,7 +10,7 @@ const TablePosition = require('../TablePosition')
  * @param {Number} at
  * @return {Slate.Transform}
  */
-function removeRow(opts, transform, at) {
+function removeRow(opts: EditTableOptions, transform: Slate$Transform, at: number) {
   const { state } = transform
   const { startBlock } = state
 

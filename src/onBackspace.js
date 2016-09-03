@@ -1,7 +1,9 @@
+// @flow
+
 const Immutable = require('immutable')
 const Slate = require('slate')
 
-function onBackspace(event, data, state, opts) {
+function onBackspace(event: any, data: any, state: Slate$State, opts: EditTableOptions) {
   const { startBlock, startOffset,
         isCollapsed, endBlock } = state
 

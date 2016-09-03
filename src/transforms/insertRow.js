@@ -1,3 +1,5 @@
+// @flow
+
 const createRow = require('../createRow')
 const TablePosition = require('../TablePosition')
 
@@ -10,7 +12,7 @@ const TablePosition = require('../TablePosition')
  * @param {Function} textGetter
  * @return {Slate.Transform}
  */
-function insertRow(opts, transform, at, textGetter) {
+function insertRow(opts: EditTableOptions, transform: Slate$Transform, at?: number, textGetter?: () => string) {
   const { state } = transform
   const { startBlock } = state
 
@@ -27,8 +29,7 @@ function insertRow(opts, transform, at, textGetter) {
 
     // Update table by inserting the row
   const newTable = table.merge({
-    nodes: table.nodes
-            .insert(at, newRow),
+    nodes: table.nodes.insert(at, newRow),
   })
 
   return transform

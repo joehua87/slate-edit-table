@@ -7,7 +7,7 @@ const Slate = require('slate')
  * @param {String} opts.typeCell The type of cell blocks
  * @return {Object} A schema definition with rules to normalize tables
  */
-function makeSchema(opts) {
+function makeSchema(opts: EditTableOptions) {
   return {
     rules: [
       tablesContainOnlyRows(opts),
@@ -23,7 +23,7 @@ function makeSchema(opts) {
  * @return {Object} A rule that ensures tables only contain rows and
  * at least one.
  */
-function tablesContainOnlyRows(opts) {
+function tablesContainOnlyRows(opts: EditTableOptions) {
   function makeEmptyRow() {
     return Slate.Raw.deserializeNode({
       kind: 'block',
@@ -84,7 +84,7 @@ function tablesContainOnlyRows(opts) {
  * @return {Object} A rule that ensures rows contains only cells, and
  * as much cells as there is columns in the table.
  */
-function rowsContainRequiredColumns(opts) {
+function rowsContainRequiredColumns(opts: EditTableOptions) {
   const isRow = (node) => node.type === opts.typeRow
   const isCell = (node) => node.type === opts.typeCell
   const countCells = (row) => row.nodes.count(isCell)
