@@ -1,0 +1,342 @@
+export type CheerioElement = {
+  type: 'tag' | 'text',
+  name?: string,
+  attribs: { [key: string]: any },
+  data: any,
+  children: Array<CheerioElement>,
+}
+
+declare class Slate$Character extends Record<any> {
+  marks: Set<Slate$Mark>;
+  text: string;
+
+  static create(properties: Object): Set<Slate$Mark>;
+  static createList(array: Array<Object>): List<Set<Slate$Mark>>;
+}
+
+declare class Slate$NodeData extends Map<*, *> {
+  type: string;
+  static create(properties: Object): Slate$NodeData;
+}
+
+declare class Slate$Html extends Map<*, *> {
+  deserialize(html: string): Slate$State;
+  serialize(state: Slate$State): string;
+  rules: Array<{serialize?: Function, deserialize?: Function}>,
+}
+
+declare class Slate$Mark extends Record<any> {
+  type: string;
+  data: Slate$NodeData;
+  static create(properties: Object): Slate$Mark;
+  static createSet(array: Array<Object>): Set<Slate$Mark>;
+}
+
+declare class Slate$Selection extends Record<any> {
+  // Properties
+  anchorKey: string;
+  anchorOffset: number;
+  focusKey: string;
+  focusOffset: number;
+  isBackward: boolean;
+  isFocused: boolean;
+
+  // Computed Properties
+  isBlurred: boolean;
+  isCollapsed: boolean;
+  isExpanded: boolean;
+  isForward: boolean;
+
+  startKey: string;
+  startOffset: string;
+  endKey: string;
+  endOffset: string;
+
+  // Static Methods
+  static create(properties: Object): Slate$Selection;
+
+  // Checking Methods
+  hasAnchorAtStartOf(node: Slate$Node): boolean;
+  hasFocusAtStartOf(node: Slate$Node): boolean;
+  hasStartAtStartOf(node: Slate$Node): boolean;
+  hasEndAtStartOf(node: Slate$Node): boolean;
+  hasAnchorAtEndOf(node: Slate$Node): boolean;
+  hasFocusAtEndOf(node: Slate$Node): boolean;
+  hasStartAtEndOf(node: Slate$Node): boolean;
+  hasEndAtEndOf(node: Slate$Node): boolean;
+  hasAnchorBetween(node: Slate$Node, start: number, end: number): boolean;
+  hasFocusBetween(node: Slate$Node, start: number, end: number): boolean;
+  hasStartBetween(node: Slate$Node, start: number, end: number): boolean;
+  hasEndBetween(node: Slate$Node, start: number, end: number): boolean;
+  hasAnchorIn(node: Slate$Node, start: number, end: number): boolean;
+  hasFocusIn(node: Slate$Node, start: number, end: number): boolean;
+  hasStartIn(node: Slate$Node, start: number, end: number): boolean;
+  hasEndIn(node: Slate$Node, start: number, end: number): boolean;
+  hasEdgeIn(node: Slate$Node): boolean;
+  isAtStartOf(node: Slate$Node): boolean;
+  isAtEndOf(node: Slate$Node): boolean;
+
+  // Transforming Methods
+  blur(): Slate$Selection;
+  extendBackward(n?: number): Slate$Selection;
+  extendForward(n?: number): Slate$Selection;
+  extendToEndOf(node: Slate$Node): Slate$Selection;
+  extendToStartOf(node: Slate$Node): Slate$Selection;
+  focus(): Slate$Selection;
+  moveToAnchor(): Slate$Selection;
+  moveToFocus(): Slate$Selection;
+  moveToStart(): Slate$Selection;
+  moveToEnd(): Slate$Selection;
+  moveToEndOf(node: Slate$Node): Slate$Selection;
+  moveToRangeOf(node: Slate$Node): Slate$Selection;
+  moveToStartOf(node: Slate$Node): Slate$Selection;
+  moveBackward(n?: Number): Slate$Selection;
+  moveForward(n?: Number): Slate$Selection;
+}
+
+declare class Slate$Document extends Slate$Node {
+
+}
+
+declare class Slate$Text extends Slate$Node {
+
+}
+
+declare class Slate$Block extends Slate$Node {
+  key: string,
+  isVoid: boolean,
+}
+
+declare class Slate$Inline extends Slate$Node {
+
+}
+
+declare class Slate$Event extends SyntheticEvent {
+  which: any;
+}
+
+declare class ImmutableRecord {
+  toJS(): Object;
+}
+
+declare class Slate$Node extends Record<any> {
+  // Computed Properties
+  nodes: List<Slate$Node>;
+  kind: string;
+  type: string;
+  length: number;
+  text: string;
+  data: Slate$NodeData;
+
+  // Retrieval Methods
+  filterDescendants(iterator: Function): List<Slate$Node>;
+  findDescendant(iterator: Function): ?Slate$Node;
+
+  getBlocksAtRange(range: Slate$Selection): List<Slate$Node>;
+  getBlocks(): List<Slate$Node>;
+  getCharactersAtRange(range: Slate$Selection): List<Slate$Character>;
+  getChild(key: string): ?Slate$Node;
+  getChild(node: Slate$Node): ?Slate$Node;
+  getClosestBlock(key: string): ?Slate$Node;
+  getClosestBlock(node: Slate$Node): ?Slate$Node;
+  getClosestInline(key: string): ?Slate$Node;
+  getClosestInline(node: Slate$Node): ?Slate$Node;
+  getClosest(key: string, match: Function): ?Slate$Node;
+  getClosest(node: Slate$Node, match: Function): ?Slate$Node;
+  getDepth(key: string): number;
+  getDepth(node: Slate$Node): number;
+  getDescendant(key: string): ?Slate$Node;
+  getDescendant(node: Slate$Node): ?Slate$Node;
+  getFragmentAtRange(range: Slate$Selection): Document;
+  getFurthest(key: string | Slate$Node, iterator: (node: Slate$Node) => boolean): ?Slate$Node;
+  getFurthestBlock(key: string | Slate$Node): ?Slate$Block;
+  getFurthestInline(key: string | Slate$Node): ?Slate$Inline;
+  getHighestChild(key: string | Slate$Node): ?Slate$Node;
+  getHighestOnlyChildParent(key: string | Slate$Node): ?Slate$Node;
+  getInlinesAtRange(range: Slate$Selection): List<Slate$Inline>;
+  getMarksAtRange(range: Slate$Selection): Set<Slate$Mark>;
+  getNextBlock(key: string | Slate$Node): ?Slate$Node;
+  getNextSibling(key: string | Slate$Node): ?Slate$Node;
+  getNextSibling(key: string | Slate$Node): ?Slate$Node;
+  getNextText(key: string | Slate$Node): ?Slate$Node;
+  getParent(key: string | Slate$Node): ?Slate$Node;
+  getPreviousBlock(key: string | Slate$Node): ?Slate$Node;
+  getPreviousSibling(key: string | Slate$Node): ?Slate$Node;
+  getPreviousSibling(key: string | Slate$Node): ?Slate$Node;
+  getPreviousText(key: string | Slate$Node): ?Slate$Node;
+  getTextAtOffset(offset: number): ?Slate$Text;
+  getTextsAtRange(range: Slate$Selection): List<Slate$Text>;
+  hasChild(key: string | Slate$Node): boolean;
+  hasDescendant(key: string | Slate$Node): boolean;
+
+  // Transform Methods
+  mapDescendants(iterator: Function): Slate$Node;
+  removeDescentdant(key: string | Slate$Node): Slate$Node;
+  updateDescentdant(node: Slate$Node): Slate$Node;
+}
+
+declare class Slate$Transform extends Record<any> {
+  // Document & Selection Transform
+  apply(options?: Object): Slate$State;
+  deleteBackward(n: number): Slate$Transform;
+  deleteForward(n: number): Slate$Transform;
+  delete(): Slate$Transform;
+  insertBlock(block: { type: string, isVoid?: boolean, data: Object }): Slate$Transform;
+  insertFragment(fragment: Slate$Node): Slate$Transform;
+  insertText(text: string): Slate$Transform;
+  addMark(mark: Slate$Mark):Slate$Transform;
+  addMark(type: string):Slate$Transform;
+  setBlock(properties: Object):Slate$Transform;
+  setBlock(type: string):Slate$Transform;
+  setInline(properties: Object): Slate$Transform;
+  setInline(type: string): Slate$Transform;
+  splitBlock(depth?: number): Slate$Transform;
+  splitInline(depth?: number): Slate$Transform;
+  removeMark(mark: Slate$Mark): Slate$Transform;
+  removeMark(type: string): Slate$Transform;
+  removeNodeByKey(key: string): Slate$Transform;
+  toggleMark(type: string): Slate$Transform;
+  unwrapBlock(type: string, data?: Slate$NodeData): Slate$Transform;
+  wrapBlock(type: string, data?: Slate$NodeData): Slate$Transform;
+  wrapBlock(block: { type: string, data?: any }): Slate$Transform;
+  unwrapInline(type: string, data?: Slate$NodeData): Slate$Transform;
+  wrapInline(type: string, data?: Slate$NodeData): Slate$Transform;
+  wrapInline(inline: { type: string, data?: any }): Slate$Transform;
+
+  // Selection Slate$Transform
+  blur(): Slate$Transform;
+  collapseToAnchor(): Slate$Transform;
+  collapseToFocus(): Slate$Transform;
+  collapseToStart(): Slate$Transform;
+  collapseToEnd(): Slate$Transform;
+
+  collapseToStartOf(node: Slate$Node): Slate$Transform;
+  collapseToEndOf(node: Slate$Node): Slate$Transform;
+
+  collapseToStartOfNextBlock(): Slate$Transform;
+  collapseToEndOfNextBlock(): Slate$Transform;
+  collapseToStartOfPreviousBlock(): Slate$Transform;
+  collapseToEndOfPreviousBlock(): Slate$Transform;
+  collapseToEndOf(node: Slate$Node): Slate$Transform;
+
+  collapseToStartOfNextText(): Slate$Transform;
+  collapseToEndOfNextText(): Slate$Transform;
+  collapseToStartOfPreviousText(): Slate$Transform;
+  collapseToEndOfPreviousText(): Slate$Transform;
+
+  extendBackward(n: number): Slate$Transform;
+  extendForward(n: number): Slate$Transform;
+
+  extendToStartOf(node: Slate$Node): Slate$Transform;
+  extendToEndOf(node: Slate$Node): Slate$Transform;
+
+  focus(): Slate$Transform;
+
+  moveBackward(n: number): Slate$Transform;
+  moveForward(n: number): Slate$Transform;
+  moveToOffsets(anchorOffset: number, focusOffset: Number): Slate$Transform;
+  moveToRangeOf(node: Slate$Node): Slate$Transform;
+  moveTo(selection: Slate$Selection | Object): Slate$Transform;
+
+  // Document Slate$Transform
+  deleteBackwardAtRange(range: Slate$Selection, n: number): Slate$Transform;
+  deleteForwardAtRange(range: Slate$Selection, n: number): Slate$Transform;
+  deleteAtRange(range: Slate$Selection): Slate$Transform;
+
+  insertFragmentAtRange(range: Slate$Selection, fragment: Document): Slate$Transform;
+  insertTextAtRange(range: Slate$Selection, text: string): Slate$Transform;
+
+  addMarkAtRange(range: Slate$Selection, mark: Slate$Mark): Slate$Transform;
+  addMarkAtRange(range: Slate$Selection, type: string): Slate$Transform;
+  setBlockAtRange(range: Slate$Selection, properties: Object): Slate$Transform;
+  setBlockAtRange(range: Slate$Selection, type: string): Slate$Transform;
+  setInlineAtRange(range: Slate$Selection, properties: Object): Slate$Transform;
+  setInlineAtRange(range: Slate$Selection, type: string): Slate$Transform;
+  splitBlockAtRange(range: Slate$Selection, depth: number): Slate$Transform;
+  splitInlineAtRange(range: Slate$Selection, depth: number): Slate$Transform;
+  removeMarkAtRange(range: Slate$Selection, mark: Slate$Mark): Slate$Transform;
+  removeMarkAtRange(range: Slate$Selection, type: string): Slate$Transform;
+
+  unwrapBlockAtRange(range: Slate$Selection, type?: string, data?: Slate$NodeData): Slate$Transform;
+  unwrapInlineAtRange(range: Slate$Selection, type?: string, data?: Slate$NodeData): Slate$Transform;
+  wrapBlockAtRange(range: Slate$Selection, type: string, data?: Slate$NodeData): Slate$Transform;
+  wrapInlineAtRange(range: Slate$Selection, type: string, data?: Slate$NodeData): Slate$Transform;
+
+  // History Slate$Transform
+  redo(): Slate$Transform;
+  undo(): Slate$Transform;
+}
+
+declare class Slate$State extends Record<any> {
+  // Properties
+  document: Slate$Document;
+  selection: Slate$Selection;
+
+  // Computed Properties
+  anchorText: Slate$Text;
+  focusText: Slate$Text;
+  startText: Slate$Text;
+  endText: Slate$Text;
+  anchorBlock: Slate$Block;
+  focusBlock: Slate$Block;
+  startBlock: Slate$Block;
+  endBlock: Slate$Block;
+  marks: Set<Slate$Mark>;
+  blocks: List<Slate$Block>;
+  fragment: Slate$Document;
+  inlines: List<Slate$Node>;
+  texts: List<Slate$Text>;
+
+  // Selection-Like Properties
+  anchorKey: string;
+  focusKey: string;
+  startKey: string;
+  endKey: string;
+
+  anchorOffset: number;
+  focusOffset: number;
+  startOffset: number;
+  endOffset: number;
+
+  isBackward: boolean;
+  isBlurred: boolean;
+  isCollapsed: boolean;
+  isExpanded: boolean;
+  isFocused: boolean;
+  isForward: boolean;
+
+  static create(properties: Object): Slate$State;
+  transform: () => Slate$Transform;
+}
+
+declare type EditorDefaultProps = {}
+
+declare type EditorProps = {}
+
+declare class Slate$Editor extends React$Component {
+  static defaultProps: EditorDefaultProps;
+  props: EditorProps;
+  onChange: (state: Slate$State) => void;
+  getState: () => Slate$State;
+}
+
+declare type Slate$Raw = {
+  deserialize(initialState: Object): Slate$State;
+  serialize(state: Slate$State): Object;
+}
+
+declare type Slate$Plain = {
+  deserialize(html: string): Slate$State;
+  serialize(state: Slate$State): string;
+};
+
+declare module 'slate' {
+  declare module.exports: {
+    State: Slate$State;
+    Raw: Slate$Raw;
+    Data: Class<Slate$NodeData>;
+    Html: Class<Slate$Html>;
+    Plain: Slate$Plain;
+    Editor: Class<Slate$Editor>,
+  }
+}

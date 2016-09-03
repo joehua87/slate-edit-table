@@ -12,6 +12,7 @@
 ./flow-typed/external-modules.js # Define modules that not yet have flow-typed
 ./flow-typed/npm/enzyme_v2.x.x.js
 ./flow-typed/npm/mocha_v2.4.x.js
+./flow-typed/slate.js.flow
 
 [options]
 esproposal.class_instance_fields=enable
