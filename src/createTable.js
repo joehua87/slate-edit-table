@@ -1,6 +1,6 @@
-const Immutable = require('immutable');
-const Slate = require('slate');
-const createRow = require('./createRow');
+const Immutable = require('immutable')
+const Slate = require('slate')
+const createRow = require('./createRow')
 
 /**
  * Create a table
@@ -13,14 +13,14 @@ const createRow = require('./createRow');
  * @return {State.Block}
  */
 function createTable(opts, columns, rows, textGetter) {
-    const rowNodes = Immutable.Range(0, rows)
+  const rowNodes = Immutable.Range(0, rows)
         .map(i => createRow(opts, columns, textGetter ? textGetter.bind(null, i) : null))
-        .toList();
+        .toList()
 
-    return Slate.Block.create({
-        type:  opts.typeTable,
-        nodes: rowNodes
-    });
+  return Slate.Block.create({
+    type: opts.typeTable,
+    nodes: rowNodes,
+  })
 }
 
-module.exports = createTable;
+module.exports = createTable

@@ -40,6 +40,4 @@ jspm_packages
 build
 
 # Compiled
-dist
-example/bundle.js
-# lib
+lib
