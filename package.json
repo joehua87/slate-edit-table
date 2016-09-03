@@ -81,7 +81,9 @@
   },
   "peerDependencies": {
     "react": "^15.3.1",
-    "react-dom": "^15.3.1"
+    "react-dom": "^15.3.1",
+    "immutable": "^3.8.1",
+    "slate": "^0.13.6"
   },
   "stylelint": {
     "extends": "stylelint-config-standard",
