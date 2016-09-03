@@ -4,6 +4,7 @@ const React = require('react')
 const ReactDOM = require('react-dom')
 const Slate = require('slate')
 const PluginEditTable = require('../src/')
+import { insertImage } from './image-transforms'
 const styles = require('./main.css')
 
 const stateJson = require('./state')
@@ -32,6 +33,12 @@ const schema = {
     table_cell: props => <td {...props.attributes}>{props.children}</td>,
     paragraph: props => <p {...props.attributes}>{props.children}</p>,
     heading: props => <h1 {...props.attributes}>{props.children}</h1>,
+    image: props => (
+      <div>
+        <img {...props.attributes} role="presentation" src={props.node.data.get('src')} />
+        {props.children}
+      </div>
+    ),
   },
 }
 
@@ -82,6 +89,12 @@ export default class Example extends React.Component {
     this.onChange(nextState)
   };
 
+  onInsertImage = () => {
+    const { state } = this.state
+    const nextState = insertImage(state.transform()).apply()
+    this.onChange(nextState)
+  };
+
   onLogState = () => {
     console.log(JSON.stringify(Slate.Raw.serialize(this.state.state, { terse: true }), null, 2))
   }
@@ -110,6 +123,7 @@ export default class Example extends React.Component {
     return (
       <div className={styles.root}>
         {isTable ? this.renderTableToolbar() : this.renderNormalToolbar()}
+        <button onClick={this.onInsertImage}>Insert Image</button>
         <Slate.Editor
           placeholder={'Enter some text...'}
           plugins={plugins}
