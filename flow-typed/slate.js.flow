@@ -105,6 +105,7 @@ declare class Slate$Text extends Slate$Node {
 declare class Slate$Block extends Slate$Node {
   key: string,
   isVoid: boolean,
+  static create(properties: Object): Slate$Block;
 }
 
 declare class Slate$Inline extends Slate$Node {
@@ -177,6 +178,7 @@ declare class Slate$Node extends Record<any> {
 
 declare class Slate$Transform extends Record<any> {
   // Document & Selection Transform
+  state: Slate$State,
   apply(options?: Object): Slate$State;
   deleteBackward(n: number): Slate$Transform;
   deleteForward(n: number): Slate$Transform;
@@ -186,6 +188,7 @@ declare class Slate$Transform extends Record<any> {
   insertText(text: string): Slate$Transform;
   addMark(mark: Slate$Mark):Slate$Transform;
   addMark(type: string):Slate$Transform;
+  setNodeByKey(key: string, node: Slate$Node):Slate$Transform;
   setBlock(properties: Object):Slate$Transform;
   setBlock(type: string):Slate$Transform;
   setInline(properties: Object): Slate$Transform;
@@ -321,8 +324,9 @@ declare class Slate$Editor extends React$Component {
 }
 
 declare type Slate$Raw = {
-  deserialize(initialState: Object): Slate$State;
-  serialize(state: Slate$State): Object;
+  deserialize(initialState: Object, options?: { terse: boolean }): Slate$State;
+  deserializeText(initialState: Object, options?: { terse: boolean }): Slate$State;
+  serialize(state: Slate$State, options?: { terse: boolean }): Object;
 }
 
 declare type Slate$Plain = {
@@ -334,6 +338,7 @@ declare module 'slate' {
   declare module.exports: {
     State: Slate$State;
     Raw: Slate$Raw;
+    Block: Class<Slate$Block>;
     Data: Class<Slate$NodeData>;
     Html: Class<Slate$Html>;
     Plain: Slate$Plain;
