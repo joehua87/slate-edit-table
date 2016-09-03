@@ -99,7 +99,7 @@ declare class Slate$Document extends Slate$Node {
 }
 
 declare class Slate$Text extends Slate$Node {
-
+  static create(text?: string): Slate$Text;
 }
 
 declare class Slate$Block extends Slate$Node {
@@ -184,11 +184,13 @@ declare class Slate$Transform extends Record<any> {
   deleteForward(n: number): Slate$Transform;
   delete(): Slate$Transform;
   insertBlock(block: { type: string, isVoid?: boolean, data: Object }): Slate$Transform;
+  insertBlock(block: Slate$Block): Slate$Transform;
   insertFragment(fragment: Slate$Node): Slate$Transform;
   insertText(text: string): Slate$Transform;
   addMark(mark: Slate$Mark):Slate$Transform;
   addMark(type: string):Slate$Transform;
   setNodeByKey(key: string, node: Slate$Node):Slate$Transform;
+  setNodeByKey(key: string, properties: Object):Slate$Transform;
   setBlock(properties: Object):Slate$Transform;
   setBlock(type: string):Slate$Transform;
   setInline(properties: Object): Slate$Transform;
@@ -237,7 +239,7 @@ declare class Slate$Transform extends Record<any> {
 
   moveBackward(n: number): Slate$Transform;
   moveForward(n: number): Slate$Transform;
-  moveToOffsets(anchorOffset: number, focusOffset: Number): Slate$Transform;
+  moveToOffsets(anchorOffset: number, focusOffset?: Number): Slate$Transform;
   moveToRangeOf(node: Slate$Node): Slate$Transform;
   moveTo(selection: Slate$Selection | Object): Slate$Transform;
 
@@ -341,6 +343,7 @@ declare module 'slate' {
     Block: Class<Slate$Block>;
     Data: Class<Slate$NodeData>;
     Html: Class<Slate$Html>;
+    Text: Class<Slate$Text>;
     Plain: Slate$Plain;
     Editor: Class<Slate$Editor>,
   }
