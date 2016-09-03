@@ -9,7 +9,6 @@ import { Block, Raw } from 'slate'
  * @return {Slate.Node}
  */
 function createCell(opts: EditTableOptions, text?: string) {
-  console.log('Options', opts)
   text = text || ''
 
   const nodes = opts.defaultCellChildren || [
