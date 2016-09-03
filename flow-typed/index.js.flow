@@ -2,4 +2,5 @@ export type EditTableOptions = {
   typeTable: string,
   typeRow: string,
   typeCell: string,
+  defaultCellChildren?: string,
 }

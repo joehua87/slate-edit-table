@@ -13,7 +13,11 @@ function removeTable(opts: EditTableOptions, transform: Slate$Transform) {
   const { state } = transform
   const { startBlock } = state
 
-  const pos = TablePosition.create(state, startBlock)
+  let cellBlock
+  if (startBlock.type === opts.typeCell) cellBlock = startBlock
+  else cellBlock = state.document.getClosest(startBlock, (block) => block.type === opts.typeCell)
+
+  const pos = TablePosition.create(state, cellBlock)
   const { table } = pos
 
   return transform

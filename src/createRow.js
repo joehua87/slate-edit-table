@@ -14,7 +14,7 @@ const createCell = require('./createCell')
  */
 function createRow(opts: EditTableOptions, columns: number, textGetter?: ?() => string) {
   const cellNodes = Immutable.Range(0, columns)
-        .map(i => createCell(opts.typeCell, textGetter ? textGetter(i) : ''))
+        .map(i => createCell(opts, textGetter ? textGetter(i) : ''))
         .toList()
 
   return Slate.Block.create({

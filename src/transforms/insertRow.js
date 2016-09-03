@@ -16,7 +16,11 @@ function insertRow(opts: EditTableOptions, transform: Slate$Transform, at?: numb
   const { state } = transform
   const { startBlock } = state
 
-  const pos = TablePosition.create(state, startBlock)
+  let cellBlock
+  if (startBlock.type === opts.typeCell) cellBlock = startBlock
+  else cellBlock = state.document.getClosest(startBlock, (block) => block.type === opts.typeCell)
+
+  const pos = TablePosition.create(state, cellBlock)
   const { table } = pos
 
     // Create a new row with the right count of cells

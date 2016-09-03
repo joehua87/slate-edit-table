@@ -48,11 +48,15 @@ function moveSelection(opts: EditTableOptions, transform: Slate$Transform, x: nu
   const { startBlock } = state
   let { startOffset } = state
 
-  if (startBlock.type !== opts.typeCell) {
+  let cellBlock
+  if (startBlock.type === opts.typeCell) cellBlock = startBlock
+  else cellBlock = state.document.getClosest(startBlock, (block) => block.type === opts.typeCell)
+
+  if (!cellBlock) {
     throw new Error('moveSelection can only be applied in a cell')
   }
 
-  const pos = TablePosition.create(state, startBlock)
+  const pos = TablePosition.create(state, cellBlock)
   const { table } = pos
 
   const rowIndex = pos.getRowIndex()

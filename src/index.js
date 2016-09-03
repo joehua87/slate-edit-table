@@ -37,9 +37,10 @@ function EditTable(opts: EditTableOptions) {
      */
   function isSelectionInTable(state: Slate$State) {
     const { startBlock } = state
+    const cell = state.document.getClosest(startBlock, (block) => block.type === opts.typeCell)
 
-        // Only handle events in cells
-    return (startBlock.type === opts.typeCell)
+    // Only handle events in cells or cell's children
+    return (startBlock.type === opts.typeCell) || !!cell
   }
 
     /**

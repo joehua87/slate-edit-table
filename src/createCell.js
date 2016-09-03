@@ -8,17 +8,20 @@ import { Block, Raw } from 'slate'
  * @param {String} text?
  * @return {Slate.Node}
  */
-function createCell(type: string, text?: string) {
+function createCell(opts: EditTableOptions, text?: string) {
+  console.log('Options', opts)
   text = text || ''
 
+  const nodes = opts.defaultCellChildren || [
+    Raw.deserializeText({
+      kind: 'text',
+      text,
+    }, { terse: true }),
+  ]
+
   return Block.create({
-    type,
-    nodes: [
-      Raw.deserializeText({
-        kind: 'text',
-        text,
-      }, { terse: true }),
-    ],
+    type: opts.typeCell,
+    nodes,
   })
 }
 

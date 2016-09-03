@@ -15,7 +15,11 @@ function insertColumn(opts: EditTableOptions, transform: Slate$Transform, at: nu
   const { state } = transform
   const { startBlock } = state
 
-  const pos = TablePosition.create(state, startBlock)
+  let cellBlock
+  if (startBlock.type === opts.typeCell) cellBlock = startBlock
+  else cellBlock = state.document.getClosest(startBlock, (block) => block.type === opts.typeCell)
+
+  const pos = TablePosition.create(state, cellBlock)
   const { table } = pos
 
   if (typeof at === 'undefined') {
@@ -27,7 +31,7 @@ function insertColumn(opts: EditTableOptions, transform: Slate$Transform, at: nu
     // Add a new cell to each row
   rows = rows.map((row) => {
     let cells = row.nodes
-    const newCell = createCell(opts.typeCell)
+    const newCell = createCell(opts)
 
     cells = cells.insert(at, newCell)
 

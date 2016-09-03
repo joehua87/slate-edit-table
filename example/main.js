@@ -8,7 +8,19 @@ const styles = require('./main.css')
 
 const stateJson = require('./state')
 
-const tablePlugin = PluginEditTable()
+const tablePlugin = PluginEditTable({
+  defaultCellChildren: [{
+    kind: 'block',
+    type: 'div',
+    nodes: [
+      Slate.Raw.deserializeText({
+        kind: 'text',
+        text: '',
+      }, { terse: true }),
+    ],
+  }],
+})
+
 const plugins = [
   tablePlugin,
 ]
@@ -70,9 +82,14 @@ export default class Example extends React.Component {
     this.onChange(nextState)
   };
 
+  onLogState = () => {
+    console.log(JSON.stringify(Slate.Raw.serialize(this.state.state, { terse: true }), null, 2))
+  }
+
   renderNormalToolbar = () => (
     <div>
       <button onClick={this.onInsertTable}>Insert Table</button>
+      <button onClick={this.onLogState}>Log State</button>
     </div>
   );
 
