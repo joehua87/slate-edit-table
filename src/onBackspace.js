@@ -21,7 +21,7 @@ function onBackspace(event, data, state, opts) {
   event.preventDefault()
 
   const { blocks, focusBlock } = state
-  const transform = blocks.reduce(function (transform, block) {
+  const transformStack = blocks.reduce((transform, block) => {
     if (block.type !== opts.typeCell) {
       return transform
     }
@@ -36,7 +36,7 @@ function onBackspace(event, data, state, opts) {
   }, state.transform())
 
     // Clear selected cells
-  return transform
+  return transformStack
         .collapseToStartOf(focusBlock)
         .apply()
 }

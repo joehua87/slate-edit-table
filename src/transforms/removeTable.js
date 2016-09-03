@@ -5,10 +5,9 @@ const TablePosition = require('../TablePosition')
  *
  * @param {Object} opts
  * @param {Slate.Transform} transform
- * @param {Number} at
  * @return {Slate.Transform}
  */
-function removeTable(opts, transform, at) {
+function removeTable(opts, transform) {
   const { state } = transform
   const { startBlock } = state
 

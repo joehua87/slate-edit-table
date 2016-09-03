@@ -59,11 +59,9 @@ function tablesContainOnlyRows(opts) {
       } else if (table.nodes.size === rows.size) {
                 // Only valid rows
         return null
-      } else {
-                // Keep only rows
-        return {
-          nodes: rows,
-        }
+      }
+      return {
+        nodes: rows,
       }
     },
 
@@ -113,9 +111,7 @@ function rowsContainRequiredColumns(opts) {
       const rows = table.nodes.filter(isRow)
 
             // The number of column this table has
-      const columns = rows.reduce(function (columns, row) {
-        return Math.max(columns, countCells(row))
-      }, 1) // Min 1 column
+      const columns = rows.reduce((cols, row) => Math.max(cols, countCells(row)), 1) // Min 1 column
 
 
       const valid = rows.every(row => columns === countCells(row))
@@ -124,7 +120,7 @@ function rowsContainRequiredColumns(opts) {
       }
             // else normalize, by padding with empty cells
 
-      const normalizedRows = rows.map(function (row) {
+      const normalizedRows = rows.map((row) => {
         let newCells = row.nodes
 
                 // Complete missing columns
@@ -135,11 +131,7 @@ function rowsContainRequiredColumns(opts) {
         }
 
                 // Replace invalid columns with empty cells
-        newCells = newCells.map(function fix(column) {
-          return isCell(column)
-                        ? column
-                        : makeEmptyCell()
-        })
+        newCells = newCells.map((column) => (isCell(column) ? column : makeEmptyCell()))
 
         return row.set(
                     'nodes',
@@ -158,7 +150,7 @@ function rowsContainRequiredColumns(opts) {
          */
     normalize(transform, node, value) {
       return value.toUpdate.reduce(
-                (tr, node) => tr.setNodeByKey(node.key, node),
+                (tr, n) => tr.setNodeByKey(n.key, n),
                 transform
             )
     },

@@ -23,7 +23,7 @@ function insertColumn(opts, transform, at) {
   let rows = table.nodes
 
     // Add a new cell to each row
-  rows = rows.map(function (row) {
+  rows = rows.map((row) => {
     let cells = row.nodes
     const newCell = createCell(opts.typeCell)
 

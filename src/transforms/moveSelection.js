@@ -42,7 +42,8 @@ function calculPos(x, y, width, height) {
  */
 function moveSelection(opts, transform, x, y, xabsolute, yabsolute) {
   const { state } = transform
-  let { startBlock, startOffset } = state
+  const { startBlock } = state
+  let { startOffset } = state
 
   if (startBlock.type !== opts.typeCell) {
     throw new Error('moveSelection can only be applied in a cell')

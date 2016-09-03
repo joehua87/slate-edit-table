@@ -17,9 +17,9 @@ function insertTable(opts, transform, columns = 2, rows = 2) {
   const currentText = startBlock.text
 
     // Create the table node
-  const table = createTable(opts, columns, rows, function (x, y) {
-    if (x == 0 && y == 0) return currentText
-    else return ''
+  const table = createTable(opts, columns, rows, (x, y) => {
+    if (x === 0 && y === 0) return currentText
+    return ''
   })
 
   return transform
