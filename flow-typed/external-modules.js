@@ -13,3 +13,7 @@ declare module 'sinon' {
 declare module '@kadira/storybook' {
   declare var exports: any;
 }
+
+declare module 'immutable' {
+  declare var exports: any;
+}
