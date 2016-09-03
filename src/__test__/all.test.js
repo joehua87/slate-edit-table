@@ -6,7 +6,7 @@ const path = require('path')
 const Slate = require('slate')
 const readMetadata = require('read-metadata')
 
-const EditList = require('../src')
+const EditList = require('../')
 
 describe('slate-edit-list', () => {
   const tests = fs.readdirSync(__dirname)
