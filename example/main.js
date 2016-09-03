@@ -36,37 +36,37 @@ export default class Example extends React.Component {
 
   onInsertTable = () => {
     const { state } = this.state
-    const nextState = tablePlugin.transforms.insertTable(state.transform.apply())
+    const nextState = tablePlugin.transforms.insertTable(state.transform()).apply()
     this.onChange(nextState)
   };
 
   onInsertColumn = () => {
     const { state } = this.state
-    const nextState = tablePlugin.transforms.insertColumn(state.transform.apply())
+    const nextState = tablePlugin.transforms.insertColumn(state.transform()).apply()
     this.onChange(nextState)
   };
 
   onInsertRow = () => {
     const { state } = this.state
-    const nextState = tablePlugin.transforms.insertRow(state.transform.apply())
+    const nextState = tablePlugin.transforms.insertRow(state.transform()).apply()
     this.onChange(nextState)
   };
 
   onRemoveColumn = () => {
     const { state } = this.state
-    const nextState = tablePlugin.transforms.removeColumn(state.transform.apply())
+    const nextState = tablePlugin.transforms.removeColumn(state.transform()).apply()
     this.onChange(nextState)
   };
 
   onRemoveRow = () => {
     const { state } = this.state
-    const nextState = tablePlugin.transforms.removeRow(state.transform.apply())
+    const nextState = tablePlugin.transforms.removeRow(state.transform()).apply()
     this.onChange(nextState)
   };
 
   onRemoveTable = () => {
     const { state } = this.state
-    const nextState = tablePlugin.transforms.removeTable(state.transform.apply())
+    const nextState = tablePlugin.transforms.removeTable(state.transform()).apply()
     this.onChange(nextState)
   };
 
