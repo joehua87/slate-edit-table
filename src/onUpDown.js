@@ -3,6 +3,10 @@
 const moveSelection = require('./transforms/moveSelection')
 
 function onUpDown(event: any, data: any, state: Slate$State, opts: EditTableOptions) {
+  // Only handle when startBlock is is cell
+  const { startBlock } = state
+  if (startBlock.type !== opts.typeCell) return
+
   const transform = state.transform()
 
   const newTransform = moveSelection(

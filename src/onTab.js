@@ -22,6 +22,10 @@ function selectAllText(transform) {
  * and select the whole text
  */
 function onTab(event: any, data: any, state: Slate$State, opts: EditTableOptions) {
+  // Only handle when startBlock is is cell
+  const { startBlock } = state
+  if (startBlock.type !== opts.typeCell) return
+
   const direction = (data.isShift ? -1 : +1)
   const transform = state.transform()
   let newTransform = moveSelection(opts, transform, direction, 0)

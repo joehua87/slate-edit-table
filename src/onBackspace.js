@@ -4,8 +4,10 @@ const Immutable = require('immutable')
 const Slate = require('slate')
 
 function onBackspace(event: any, data: any, state: Slate$State, opts: EditTableOptions) {
-  const { startBlock, startOffset,
-        isCollapsed, endBlock } = state
+  const { startBlock, startOffset, isCollapsed, endBlock } = state
+
+  // Only handle when startBlock is is cell
+  if (startBlock.type !== opts.typeCell) return
 
     // If a cursor is collapsed at the start of the block, do nothing
   if (startOffset === 0 && isCollapsed) {
