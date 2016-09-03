@@ -1,30 +1,32 @@
-const expect = require('expect');
-const fs = require('fs');
-const path = require('path');
-const Slate = require('slate');
-const readMetadata = require('read-metadata');
+/* eslint-disable global-require */
 
-const EditList = require('../lib');
+const expect = require('expect')
+const fs = require('fs')
+const path = require('path')
+const Slate = require('slate')
+const readMetadata = require('read-metadata')
 
-describe('slate-edit-list', function() {
-    const tests = fs.readdirSync(__dirname);
-    const plugin = EditList();
+const EditList = require('../src')
 
-    tests.forEach(function(test) {
-        if (test[0] === '.' || path.extname(test).length > 0) return;
+describe('slate-edit-list', () => {
+  const tests = fs.readdirSync(__dirname)
+  const plugin = EditList()
 
-        it(test, function() {
-            const dir = path.resolve(__dirname, test);
-            const input = readMetadata.sync(path.resolve(dir, 'input.yaml'));
-            const expected = readMetadata.sync(path.resolve(dir, 'expected.yaml'));
-            const runTransform = require(path.resolve(dir, 'transform.js'));
+  tests.forEach((test) => {
+    if (test[0] === '.' || path.extname(test).length > 0) return
 
-            const stateInput = Slate.Raw.deserialize(input, { terse: true });
+    it(test, () => {
+      const dir = path.resolve(__dirname, test)
+      const input = readMetadata.sync(path.resolve(dir, 'input.yaml'))
+      const expected = readMetadata.sync(path.resolve(dir, 'expected.yaml'))
+      const runTransform = require(path.resolve(dir, 'transform.js'))
 
-            const newState = runTransform(plugin, stateInput);
+      const stateInput = Slate.Raw.deserialize(input, { terse: true })
 
-            const newDocJSon = Slate.Raw.serialize(newState, { terse: true });
-            expect(newDocJSon).toEqual(expected);
-        });
-    });
-});
+      const newState = runTransform(plugin, stateInput)
+
+      const newDocJSon = Slate.Raw.serialize(newState, { terse: true })
+      expect(newDocJSon).toEqual(expected)
+    })
+  })
+})
