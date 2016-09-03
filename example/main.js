@@ -1,134 +1,112 @@
-const React = require('react');
-const ReactDOM = require('react-dom');
-const Slate = require('slate');
-const PluginEditTable = require('../lib/');
+/* eslint-disable react/prop-types */
 
-const stateJson = require('./state');
+const React = require('react')
+const ReactDOM = require('react-dom')
+const Slate = require('slate')
+const PluginEditTable = require('../src/')
+const styles = require('./main.css')
 
-const tablePlugin = PluginEditTable();
+const stateJson = require('./state')
+
+const tablePlugin = PluginEditTable()
 const plugins = [
-    tablePlugin
-];
+  tablePlugin,
+]
 
-const NODES = {
-    table:      props => <table><tbody {...props.attributes}>{props.children}</tbody></table>,
-    table_row:  props => <tr {...props.attributes}>{props.children}</tr>,
+const schema = {
+  nodes: {
+    table: props => <table><tbody {...props.attributes}>{props.children}</tbody></table>,
+    table_row: props => <tr {...props.attributes}>{props.children}</tr>,
     table_cell: props => <td {...props.attributes}>{props.children}</td>,
-    paragraph:  props => <p {...props.attributes}>{props.children}</p>,
-    heading:    props => <h1 {...props.attributes}>{props.children}</h1>
-};
+    paragraph: props => <p {...props.attributes}>{props.children}</p>,
+    heading: props => <h1 {...props.attributes}>{props.children}</h1>,
+  },
+}
 
-const Example = React.createClass({
-    getInitialState: function() {
-        return {
-            state: Slate.Raw.deserialize(stateJson, { terse: true })
-        };
-    },
+export default class Example extends React.Component {
+  state = {
+    state: Slate.Raw.deserialize(stateJson, { terse: true }),
+  };
 
-    onChange: function(state) {
-        this.setState({
-            state: state
-        });
-    },
+  onChange = (state) => {
+    this.setState({
+      state,
+    })
+  };
 
-    renderNode: function(node) {
-        return NODES[node.type];
-    },
+  onInsertTable = () => {
+    const { state } = this.state
+    const nextState = tablePlugin.transforms.insertTable(state.transform.apply())
+    this.onChange(nextState)
+  };
 
-    onInsertTable: function() {
-        let { state } = this.state;
+  onInsertColumn = () => {
+    const { state } = this.state
+    const nextState = tablePlugin.transforms.insertColumn(state.transform.apply())
+    this.onChange(nextState)
+  };
 
-        this.onChange(
-            tablePlugin.transforms.insertTable(state.transform())
-                .apply()
-        );
-    },
+  onInsertRow = () => {
+    const { state } = this.state
+    const nextState = tablePlugin.transforms.insertRow(state.transform.apply())
+    this.onChange(nextState)
+  };
 
-    onInsertColumn: function() {
-        let { state } = this.state;
+  onRemoveColumn = () => {
+    const { state } = this.state
+    const nextState = tablePlugin.transforms.removeColumn(state.transform.apply())
+    this.onChange(nextState)
+  };
 
-        this.onChange(
-            tablePlugin.transforms.insertColumn(state.transform())
-                .apply()
-        );
-    },
+  onRemoveRow = () => {
+    const { state } = this.state
+    const nextState = tablePlugin.transforms.removeRow(state.transform.apply())
+    this.onChange(nextState)
+  };
 
-    onInsertRow: function() {
-        let { state } = this.state;
+  onRemoveTable = () => {
+    const { state } = this.state
+    const nextState = tablePlugin.transforms.removeTable(state.transform.apply())
+    this.onChange(nextState)
+  };
 
-        this.onChange(
-            tablePlugin.transforms.insertRow(state.transform())
-                .apply()
-        );
-    },
+  renderNormalToolbar = () => (
+    <div>
+      <button onClick={this.onInsertTable}>Insert Table</button>
+    </div>
+  );
 
-    onRemoveColumn: function() {
-        let { state } = this.state;
+  renderTableToolbar = () => (
+    <div>
+      <button onClick={this.onInsertColumn}>Insert Column</button>
+      <button onClick={this.onInsertRow}>Insert Row</button>
+      <button onClick={this.onRemoveColumn}>Remove Column</button>
+      <button onClick={this.onRemoveRow}>Remove Row</button>
+      <button onClick={this.onRemoveTable}>Remove Table</button>
+    </div>
+  );
 
-        this.onChange(
-            tablePlugin.transforms.removeColumn(state.transform())
-                .apply()
-        );
-    },
+  render() {
+    const { state } = this.state
+    const isTable = tablePlugin.utils.isSelectionInTable(state)
 
-    onRemoveRow: function() {
-        let { state } = this.state;
-
-        this.onChange(
-            tablePlugin.transforms.removeRow(state.transform())
-                .apply()
-        );
-    },
-
-    onRemoveTable: function() {
-        let { state } = this.state;
-
-        this.onChange(
-            tablePlugin.transforms.removeTable(state.transform())
-                .apply()
-        );
-    },
-
-    renderNormalToolbar: function() {
-        return (
-            <div>
-                <button onClick={this.onInsertTable}>Insert Table</button>
-            </div>
-        );
-    },
-
-    renderTableToolbar: function() {
-        return (
-            <div>
-                <button onClick={this.onInsertColumn}>Insert Column</button>
-                <button onClick={this.onInsertRow}>Insert Row</button>
-                <button onClick={this.onRemoveColumn}>Remove Column</button>
-                <button onClick={this.onRemoveRow}>Remove Row</button>
-                <button onClick={this.onRemoveTable}>Remove Table</button>
-            </div>
-        );
-    },
-
-    render: function() {
-        let { state } = this.state;
-        let isTable = tablePlugin.utils.isSelectionInTable(state);
-
-        return (
-            <div>
-                {isTable? this.renderTableToolbar() : this.renderNormalToolbar()}
-                <Slate.Editor
-                    placeholder={'Enter some text...'}
-                    plugins={plugins}
-                    state={state}
-                    onChange={this.onChange}
-                    renderNode={this.renderNode}
-                />
-            </div>
-        );
-    }
-});
+    return (
+      <div className={styles.root}>
+        {isTable ? this.renderTableToolbar() : this.renderNormalToolbar()}
+        <Slate.Editor
+          placeholder={'Enter some text...'}
+          plugins={plugins}
+          state={state}
+          schema={schema}
+          onChange={this.onChange}
+          renderNode={this.renderNode}
+        />
+      </div>
+    )
+  }
+}
 
 ReactDOM.render(
-    <Example />,
-    document.getElementById('example')
-);
+  <Example />,
+  document.getElementById('example')
+)
