@@ -1,0 +1,118 @@
+{
+  "nodes": [
+    {
+      "kind": "block",
+      "type": "heading",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "Slate + Table Edition"
+        }
+      ]
+    },
+    {
+      "kind": "block",
+      "type": "paragraph",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "This page is a basic example of Slate + slate-edit-table plugin."
+        }
+      ]
+    },
+    {
+      "kind": "block",
+      "type": "paragraph",
+      "nodes": [
+        {
+          "kind": "text",
+          "text": "Table with cell's children is text"
+        }
+      ]
+    },
+    {
+      "kind": "block",
+      "type": "table",
+      "nodes": [
+        {
+          "kind": "block",
+          "type": "table_row",
+          "nodes": [
+            {
+              "kind": "block",
+              "type": "table_cell",
+              "nodes": [
+                {
+                  "kind": "text",
+                  "text": "Col 1"
+                }
+              ]
+            },
+            {
+              "kind": "block",
+              "type": "table_cell",
+              "nodes": [
+                {
+                  "kind": "text",
+                  "text": "Col 2"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "block",
+          "type": "table_row",
+          "nodes": [
+            {
+              "kind": "block",
+              "type": "table_cell",
+              "nodes": [
+                {
+                  "kind": "text",
+                  "text": "Cell 1,1"
+                }
+              ]
+            },
+            {
+              "kind": "block",
+              "type": "table_cell",
+              "nodes": [
+                {
+                  "kind": "text",
+                  "text": "Cell 1,2"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "kind": "block",
+          "type": "table_row",
+          "nodes": [
+            {
+              "kind": "block",
+              "type": "table_cell",
+              "nodes": [
+                {
+                  "kind": "text",
+                  "text": "Cell 2,1"
+                }
+              ]
+            },
+            {
+              "kind": "block",
+              "type": "table_cell",
+              "nodes": [
+                {
+                  "kind": "text",
+                  "text": "Cell 2,2"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
