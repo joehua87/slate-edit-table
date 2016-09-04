@@ -46,6 +46,9 @@ function insertColumn(opts: EditTableOptions, transform: Slate$Transform, at: nu
     // Replace the table
   return transform
         .setNodeByKey(table.key, newTable)
+        .collapseToEndOf(
+            rows.get(pos.getRowIndex()).nodes.get(at)
+        )
 }
 
 module.exports = insertColumn
