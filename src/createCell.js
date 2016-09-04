@@ -11,12 +11,17 @@ import { Block, Raw } from 'slate'
 function createCell(opts: EditTableOptions, text?: string) {
   text = text || ''
 
-  const nodes = opts.defaultCellChildren || [
-    Raw.deserializeText({
-      kind: 'text',
-      text,
-    }, { terse: true }),
-  ]
+  let nodes
+  if (opts.createCellChildren) {
+    nodes = opts.createCellChildren()
+  } else {
+    nodes = [
+      Raw.deserializeText({
+        kind: 'text',
+        text,
+      }, { terse: true }),
+    ]
+  }
 
   return Block.create({
     type: opts.typeCell,

@@ -9,7 +9,7 @@ const styles = require('./styles.css')
 const stateJson = require('./state')
 
 const tablePlugin = PluginEditTable({
-  defaultCellChildren: [{
+  createCellChildren: [{
     kind: 'block',
     type: 'div',
     nodes: [
