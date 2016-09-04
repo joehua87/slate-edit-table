@@ -14,9 +14,9 @@ const createRow = require('./createRow')
  * @param {Function} textGetter
  * @return {State.Block}
  */
-function createTable(opts: EditTableOptions, columns: number, rows: number, textGetter: () => string) {
+function createTable(opts: EditTableOptions, columns: number, rows: number, createCellChildren?: () => any) {
   const rowNodes = Immutable.Range(0, rows)
-        .map(i => createRow(opts, columns, textGetter ? textGetter.bind(null, i) : null))
+        .map(i => createRow(opts, columns, createCellChildren ? createCellChildren.bind(null, i) : null))
         .toList()
 
   return Block.create({

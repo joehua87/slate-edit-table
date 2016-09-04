@@ -8,17 +8,24 @@ import { Block, Raw } from 'slate'
  * @param {String} text?
  * @return {Slate.Node}
  */
-function createCell(opts: EditTableOptions, text?: string) {
-  text = text || ''
-
+function createCell(opts: EditTableOptions, createCellChildren?: ?() => any) {
   let nodes
-  if (opts.createCellChildren) {
+
+  /* Use createCellChildren by following order:
+   * - createTable function
+   * - Plugin Options
+   * - Default Value
+   */
+
+  if (createCellChildren) {
+    nodes = createCellChildren()
+  } else if (opts.createCellChildren) {
     nodes = opts.createCellChildren()
   } else {
     nodes = [
       Raw.deserializeText({
         kind: 'text',
-        text,
+        text: '',
       }, { terse: true }),
     ]
   }
